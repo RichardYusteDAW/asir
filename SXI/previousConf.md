@@ -96,7 +96,7 @@ sudo nano /etc/hosts                              # Nombre del equipo y dominio.
 ---
 <br>
 
-### Enrutador cortafuegos 🔥
+### Enrutador Cortafuegos 🔥
 ```bash
 nano /etc/network/interfaces
 allow-hotplug enp0s3                              # Eliminar esta línea.
@@ -138,7 +138,7 @@ sudo chmod +x /etc/rc.local                       # Dar permisos de ejecución a
 ---
 <br>
 	
-## Comandos para comprobar que la configuración está OK
+## Comandos para comprobar que la configuración está OK 🛠️
 ```bash
 hostname                                          # Muestra el nombre del equipo.
 hostname --fqdn                                   # Muestra el nombre del equipo y el dominio (Fully Qualified Domain Name).
