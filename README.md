@@ -15,9 +15,12 @@
 - [Ubuntu Server](./servers/ubuntuServer.md)
 - [ngrok](./servers/ngrok.md)
 
-# 5. SXI ![Redes](./_img/previousConf.png)
+# 5. SSH ![SSH](./_img/ssh.png)
+- [SSH](./ssh/ssh.md)
+
+# 6. SXI ![Redes](./_img/previousConf.png)
 - [Configuración previa de las máquinas](./sxi/previousConf.md)
 - [Configuración previa de las máquinas con Netplan](./sxi/previousConfNetplan.md)
 
-# 6. Virtual Box ![Virtual Box](./_img/virtualBox.png)
+# 7. Virtual Box ![Virtual Box](./_img/virtualBox.png)
 - [Virtual Box](./virtualBox/virtualBox.md)
