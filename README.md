@@ -6,7 +6,8 @@
 
 # 3. Linux ![Linux](./_img/linux.png)
 - [Árbol de directorios](./linux/arbol_directorios.jpg)
-- [Comandos](./linux/Comandos_linux.md)
+- [Comandos](./linux/comandos_linux.md)
+- [Nano](./linux/nano.md)
 - [bashrc](./linux/bashrc.md)
 
 # 4. Servers ![Servidores](./_img/servers.png)
