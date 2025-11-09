@@ -64,7 +64,9 @@ sudo nano /etc/ssh/sshd_config
 ```bash
 # ssh-keygen
 ssh-keygen -t rsa -b 4096 -C "test@gmail.com" # Generar un par de claves RSA.
-ssh-keygen -l -f key.pub                      # Mostrar la longitud de la clave pública.
+ssh-keygen -t ed25519 -C "test@gmail.com"     # Generar un par de claves Ed25519 (no requiere longitud).
+ssh-keygen -f key -y                         # Extraer la clave pública de una clave privada.
+ssh-keygen -l -f key.pub                      # Mostrar la huella digital de una clave pública (fingerprint).
 
 # ssh
 ssh user@host                                 # Conectarse a un servidor.
