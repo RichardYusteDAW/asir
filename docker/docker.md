@@ -15,19 +15,31 @@ Docker es una plataforma de código abierto que permite a los desarrolladores au
 - `gnupg2`: Utilidad de cifrado para la seguridad de las comunicaciones y verificación de paquetes.
 - `software-properties-common`: Herramienta de gestión de repositorios de software (añadir, eliminar, etc.).
 ```bash
-apt update
-apt install apt-transport-https ca-certificates wget gnupg2 software-properties-common
-
-# Descargar la clave GPG de Docker y añadirla al sistema
-wget -qO - https://download.docker.com/linux/debian/gpg | apt-key add -
-
-# Añadir el repositorio de Docker (es lo mismo que añadirlo manualmente al archivo /etc/apt/sources.list)
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
-
-# Volvemos a actualizar la lista de paquetes ya que hemos añadido un nuevo repositorio
+# Actualizamos la lista de paquetes
 apt update
 
-apt install docker-ce
+# Creamos el directorio para almacenar las claves GPG si no existe
+sudo mkdir -p /etc/apt/keyrings
+
+# Descargamos la clave GPG oficial de Docker y la guardamos en el directorio creado
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/keyrings/docker.gpg > /dev/null
+
+# Añadimos el repositorio de Docker a las fuentes de APT
+echo \
+"deb [arch=$(dpkg --print-architecture)  \
+signed-by=/etc/apt/keyrings/docker.gpg]  \
+https://download.docker.com/linux/ubuntu \
+$(lsb_release -cs) stable"               \
+| sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Actualizamos la lista de paquetes
+sudo apt update
+
+# Instalamos Docker y sus componentes
+sudo apt install docker-ce docker-ce-cli containerd.io
+
+# Añadimos nuestro usuario al grupo docker para ejecutar comandos sin sudo
+sudo usermod -aG docker $USER
 ```
 ---
 <br>
