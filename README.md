@@ -12,6 +12,7 @@
 - [Comandos](./linux/comandos_linux.md)
 - [Nano](./linux/nano.md)
 - [bashrc](./linux/bashrc.md)
+- [bash_it](./linux/bash_it.md)
 
 # 5. Servers ![Servidores](./_img/servers.png)
 - [AWS](./servers/aws.md)
