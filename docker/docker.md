@@ -9,37 +9,45 @@ Docker es una plataforma de código abierto que permite a los desarrolladores au
 
 
 ## 2. Instalación ⚙️
-- `apt-transport-https`: Habilita la descarga segura de paquetes usando HTTPS en el gestor de paquetes apt..
-- `ca-certificates`:  Lista de certificados de autoridades de certificación confiables.
-- `wget`: Herramienta de descarga de archivos desde la web.
-- `gnupg2`: Utilidad de cifrado para la seguridad de las comunicaciones y verificación de paquetes.
-- `software-properties-common`: Herramienta de gestión de repositorios de software (añadir, eliminar, etc.).
+Dependencias necesarias para instalar Docker:
+- `ca-certificates`: Lista de certificados de autoridades de certificación confiables.
+- `curl`: Herramienta para transferir datos desde o hacia un servidor.
+- `gnupg`: Utilidad para la verificación de paquetes firmados.
+
 ```bash
 # Actualizamos la lista de paquetes
 apt update
 
-# Creamos el directorio para almacenar las claves GPG si no existe
-sudo mkdir -p /etc/apt/keyrings
+# Instalamos dependencias necesarias
+apt install -y ca-certificates curl gnupg
+
+# Creamos el directorio para almacenar las claves GPG si no existe y le damos permisos de lectura y ejecución
+mkdir -p -m 0755 /etc/apt/keyrings
 
 # Descargamos la clave GPG oficial de Docker y la guardamos en el directorio creado
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/keyrings/docker.gpg > /dev/null
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 
-# Añadimos el repositorio de Docker a las fuentes de APT
-echo \
-"deb [arch=$(dpkg --print-architecture)  \
-signed-by=/etc/apt/keyrings/docker.gpg]  \
-https://download.docker.com/linux/ubuntu \
-$(lsb_release -cs) stable"               \
-| sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+# Damos permisos de lectura a la clave
+chmod a+r /etc/apt/keyrings/docker.asc
+
+# Añadimos el repositorio oficial de Docker (formato moderno)
+cat > /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
 
 # Actualizamos la lista de paquetes
-sudo apt update
+apt update
 
 # Instalamos Docker y sus componentes
-sudo apt install docker-ce docker-ce-cli containerd.io
+apt install docker-ce docker-ce-cli containerd.io
 
 # Añadimos nuestro usuario al grupo docker para ejecutar comandos sin sudo
-sudo usermod -aG docker $USER
+usermod -aG docker $USER
 ```
 ---
 <br>
@@ -128,7 +136,7 @@ docker build -t IMAGEN:1.0 .
 - `EXPOSE`: Puerto a exponer.
 - `FROM`: Imagen que se utilizará como base para construir la nueva imagen.
 - `HEALTHCHECK`: Comprobación de salud.
-- `LABEL`: Etiquetapara identificar la imagen.
+- `LABEL`: Etiqueta para identificar la imagen.
 - `MAINTAINER`: Mantenedor es la persona que mantiene la imagen.
 - `ONBUILD`: Acción a realizar cuando se use la imagen como base.
 - `RUN`: Comando a ejecutar al construir la imagen.
