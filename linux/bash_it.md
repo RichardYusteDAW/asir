@@ -21,11 +21,30 @@ cd ~/.bash_it
 <br>
 
 ## Añadir alias 🎭
+- Haciendo un `echo` al archivo de alias personalizado.
 ```bash
 # Añadir alias al archivo de alias personalizado
 echo "alias lll='ls -lha --color=auto'" >> ~/.bash_it/custom/aliases.bash
+```
 
-# Recargar bash_it
+- Editando el archivo de alias personalizado con `nano` o tu editor de texto favorito.
+```bash
+nano ~/.bash_it/custom/aliases.bash
+
+# Aliases
+alias lll='ls -lha --color=auto'
+
+# Functions
+catmd() {
+  cat -- "$1" | command glow
+}
+
+jq() {
+  command jq . "$@"
+}
+```
+- Recargar bash_it para aplicar los cambios.
+```bash
 source ~/.bashrc
 ```
 ---
